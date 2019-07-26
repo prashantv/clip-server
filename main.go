@@ -49,6 +49,8 @@ func processConnections(ln net.Listener) error {
 }
 
 func worker(c net.Conn) {
+	defer c.Close()
+
 	bs, err := ioutil.ReadAll(c)
 	log.Printf("Got connection with (truncated) text: %.20s\n", bs)
 	clipboard.WriteAll(string(bs))
